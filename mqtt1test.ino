@@ -113,11 +113,16 @@ void TempSend(){
       //sensors.requestTemperatures(); // от датчика получаем значение температуры
       //float temp = sensors.getTempCByIndex(0);
       //client.publish("test/temp",String(temp)); // отправляем в топик для термодатчика значение температуры
-      client.publish("node1/temp","Hello from node 1!"); 
-      //Serial.println(temp);
-      Serial.println("Hello from node 1!");
-      tm = 300; // пауза меду отправками значений температуры около 3 секунд
-    }
+      float temp = ( random(400) / 10 )+ 10;
+      String msg;
+      msg = String(temp);
+      char message[5];
+      msg.toCharArray(message,5);
+       //publish sensor data to MQTT broker
+      client.publish("node1/temp",message,true); 
+      Serial.println(message);
+      tm = 300; // пауза меду отправками значений температуры около /100 секунд
+   }
   tm--; 
   delay(10); 
 }
